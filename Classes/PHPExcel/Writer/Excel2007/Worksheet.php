@@ -1139,6 +1139,27 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 							}
 						}
 						break;
+						case 't':           // Array Formulae
+              $objWriter->startElement('f');
+              $objWriter->writeAttribute('t', 'array');
+              $objWriter->writeAttribute('ref', $pCellAddress);
+              $objWriter->writeAttribute('aca', '1');
+              $objWriter->writeAttribute('ca', '1');
+              $objWriter->text($cellValue);
+              $objWriter->endElement();               
+              if ($this->getParentWriter()->getOffice2003Compatibility() === false) {
+                  if ($this->getParentWriter()->getPreCalculateFormulas()) {
+                      $calculatedValue = $pCell->getCalculatedValue();
+                      if (!is_array($calculatedValue) && substr($calculatedValue, 0, 1) != '#') {
+                          $objWriter->writeElement('v', PHPExcel_Shared_String::FormatNumber($calculatedValue));
+                      } else {
+                          $objWriter->writeElement('v', '0');
+                      }
+                  } else {
+                      $objWriter->writeElement('v', '0');
+                  }
+              }
+          break;
 					case 'n':			// Numeric
 						// force point as decimal separator in case current locale uses comma
 						$objWriter->writeElement('v', str_replace(',', '.', $cellValue));

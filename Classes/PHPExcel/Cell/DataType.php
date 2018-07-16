@@ -44,6 +44,7 @@ class PHPExcel_Cell_DataType
     const TYPE_NULL     = 'null';
     const TYPE_INLINE   = 'inlineStr';
     const TYPE_ERROR    = 'e';
+    const TYPE_FORMULA_ARRAY = 't';
 
     /**
      * List of error codes

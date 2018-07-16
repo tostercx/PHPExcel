@@ -247,6 +247,9 @@ class PHPExcel_Cell
 			case PHPExcel_Cell_DataType::TYPE_ERROR:
 				$this->_value = PHPExcel_Cell_DataType::checkErrorCode($pValue);
 				break;
+			case PHPExcel_Cell_DataType::TYPE_FORMULA_ARRAY:
+				$this->_value = (string)$pValue;
+				break;
 			default:
 				throw new PHPExcel_Exception('Invalid datatype: ' . $pDataType);
 				break;
